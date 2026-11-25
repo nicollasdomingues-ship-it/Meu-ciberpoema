@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Um clique de esperança — Ciberpoema</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    font-family: Arial, sans-serif; color: #fff;
+    background: linear-gradient(135deg, #101a3d, #294f78, #5b83a6);
+    transition: background 1s ease;
+  }
+  main {
+    width: min(90%, 680px); padding: 34px 24px; text-align: center;
+    border: 1px solid #ffffff55; border-radius: 22px;
+    background: #07152b99; box-shadow: 0 15px 45px #0005;
+  }
+  h1 { margin-top: 0; letter-spacing: 1px; }
+  .intro { color: #d9eaff; }
+  #verse {
+    min-height: 145px; display: grid; place-items: center;
+    font-size: clamp(1.4rem, 4vw, 2rem); line-height: 1.5;
+    padding: 18px; transition: opacity .3s, transform .3s;
+  }
+  #verse.change { opacity: 0; transform: translateY(12px); }
+  button {
+    border: 0; border-radius: 30px; padding: 13px 24px; margin: 7px;
+    font-size: 1rem; font-weight: bold; cursor: pointer;
+    color: #10213b; background: #ffe08a;
+  }
+  button:hover { transform: scale(1.04); }
+  #hint { color: #c8ddf5; font-size: .9rem; }
+  .star { position: fixed; color: #fff8c9; animation: float 5s ease-in-out infinite; pointer-events:none; }
+  @keyframes float { 0%,100% { transform: translateY(0); opacity:.3 } 50% { transform: translateY(-25px); opacity:1 } }
+</style>
+</head>
+<body>
+<span class="star" style="left:12%;top:18%;font-size:22px">✦</span>
+<span class="star" style="right:15%;top:25%;font-size:16px;animation-delay:1s">✧</span>
+<span class="star" style="left:22%;bottom:16%;font-size:18px;animation-delay:2s">✦</span>
+<main>
+  <h1>UM CLIQUE DE ESPERANÇA</h1>
+  <p class="intro">Um ciberpoema sobre sonhos, escolhas e o futuro.</p>
+  <div id="verse" aria-live="polite">No silêncio da tela,<br>uma ideia começa a brilhar...</div>
+  <button onclick="nextVerse()">Revelar próximo verso</button>
+  <button onclick="restart()">Recomeçar</button>
+  <p id="hint">Clique para descobrir o poema. Cada escolha revela uma nova parte.</p>
+</main>
+<script>
+const verses = [
+  "No silêncio da tela,<br>uma ideia começa a brilhar...",
+  "Um sonho não cabe<br>em uma simples janela.",
+  "Cada clique é um passo,<br>cada palavra, uma escolha.",
+  "O futuro se constrói<br>com coragem e atitude.",
+  "Mesmo em caminhos diferentes,<br>podemos seguir juntos.",
+  "A esperança se conecta,<br>e o amanhã começa agora."
+];
+const colors = [
+  "linear-gradient(135deg,#101a3d,#294f78,#5b83a6)",
+  "linear-gradient(135deg,#20204f,#5a4b91,#b36b9b)",
+  "linear-gradient(135deg,#123b45,#287b78,#9bc5a4)",
+  "linear-gradient(135deg,#38234f,#815b8c,#d18b9b)",
+  "linear-gradient(135deg,#173653,#347b9b,#83b8c9)",
+  "linear-gradient(135deg,#34204c,#865c9b,#e1a6a2)"
+];
+let index = 0;
+function showVerse() {
+  const el = document.getElementById("verse");
+  el.classList.add("change");
+  setTimeout(() => {
+    el.innerHTML = verses[index];
+    document.body.style.background = colors[index];
+    el.classList.remove("change");
+  }, 250);
+}
+function nextVerse() {
+  index = (index + 1) % verses.length;
+  showVerse();
+}
+function restart() {
+  index = 0;
+  showVerse();
+}
+</script>
+</body>
+</html>
